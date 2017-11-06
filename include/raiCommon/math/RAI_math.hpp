@@ -4,11 +4,9 @@
 #include <Eigen/Dense>
 #include <Eigen/Core>
 #include <math.h>
-#include "../TypeDef.hpp"
 #include <iostream>
 #include <vector>
-
-#include "rai/RAI_Tensor.hpp"
+#include "raiCommon/TypeDef.hpp"
 
 namespace rai {
 namespace Math {
@@ -20,8 +18,8 @@ class MathFunc {
     return (T(0) < val) - (val < T(0));
   }
 
-  static inline Eigen::Matrix3d skewM(Eigen::Vector3d &vec) {
-    Eigen::Matrix3d mat;
+  static inline RotationMatrix skewM(Eigen::Vector3d &vec) {
+    RotationMatrix mat;
     mat << 0.0, -vec(2), vec(1),
         vec(2), 0.0, -vec(0),
         -vec(1), vec(0), 0.0;
