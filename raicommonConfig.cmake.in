@@ -1,0 +1,5 @@
+# This file exports the Eigen3::Eigen CMake target which should be passed to the
+# target_link_libraries command.
+
+set (RAI_COMMON_INCLUDE_DIR  "@CONF_INCLUDE_DIRS@")
+set (RAI_COMMON_LINK "@rai_common@")
