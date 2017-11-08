@@ -200,7 +200,7 @@ class MathFunc {
     q[3] = q[3] / norm;
   }
 
-  static inline Quaternion angleAxisToQuat(double &angle, Axis &axis) {
+  static inline Quaternion angleAxisToQuat(double angle, Axis &axis) {
     Quaternion quat;
     quat << cos(angle / 2.0), axis * sin(angle / 2.0);
     return quat;
