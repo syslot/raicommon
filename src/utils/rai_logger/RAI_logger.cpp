@@ -6,5 +6,5 @@
 
 namespace rai{
 namespace Utils{
-  std::shared_ptr<RAI_logger> logger(new RAI_logger());
+  std::shared_ptr<RAI_logger> logger(new RAI_logger);
 }}

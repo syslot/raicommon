@@ -8,8 +8,8 @@
 namespace rai {
 namespace Utils {
 
-std::shared_ptr<Timer> timer(new Timer());
+std::shared_ptr<Timer> timer(new Timer);
 
 }
-} /* namespace gcpc */
+}
 
