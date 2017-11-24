@@ -3,6 +3,7 @@
 
 #include <float.h>                          // required for DBL_EPSILON
 #include <math.h>                           // required for fabs(), sqrt()
+#include <functional>
 
 
 ////////////////////////////////////////////////////////////////////////////////
