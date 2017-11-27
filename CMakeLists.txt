@@ -54,14 +54,6 @@ install(TARGETS                 ${rai_common}
         #        INCLUDES DESTINATION    include
         )
 
-# install packages globally
-install(TARGETS                 ${rai_common}
-        EXPORT                  ${TARGETS_EXPORT_NAME}
-        LIBRARY DESTINATION     ${CMAKE_INSTALL_PREFIX}/lib
-        ARCHIVE DESTINATION     ${CMAKE_INSTALL_PREFIX}/lib
-        #        INCLUDES DESTINATION    include
-        )
-
 # install raiGraphicsConfig.cmake file to config cmake path
 install(FILES           ${CMAKE_CURRENT_BINARY_DIR}/${CONFIG_FILE_NAME}
         DESTINATION     ${CMAKE_PACKAGE_INSTALL_DIR})
