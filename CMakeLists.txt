@@ -56,3 +56,4 @@ install(TARGETS                 ${rai_common}
 # install raiGraphicsConfig.cmake file to config cmake path
 install(FILES           ${CMAKE_CURRENT_BINARY_DIR}/${CONFIG_FILE_NAME}
         DESTINATION     ${CMAKE_PACKAGE_INSTALL_DIR})
+
