@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_AUTOMOC ON)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 include(GNUInstallDirs)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
@@ -51,7 +51,6 @@ install(TARGETS                 ${rai_common}
         EXPORT                  ${TARGETS_EXPORT_NAME}
         LIBRARY DESTINATION     lib
         ARCHIVE DESTINATION     lib
-        #        INCLUDES DESTINATION    include
         )
 
 # install raiGraphicsConfig.cmake file to config cmake path
