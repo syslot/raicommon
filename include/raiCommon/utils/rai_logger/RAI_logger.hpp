@@ -78,8 +78,8 @@ class RAI_logger {
     return data_[dataIdx_[name]]->getData().size();
   }
 
-  void dumpData(std::string name) {
-    data_[dataIdx_[name]]->dumpData();
+  void clearData(std::string name) {
+    data_[dataIdx_[name]]->clearData();
   }
 
   std::string getCurrentDataAndTime() {
