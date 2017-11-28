@@ -7,7 +7,7 @@
 namespace rai {
 namespace Utils {
 
-std::shared_ptr<Graph::GnuplotFigureManager> graph(new Graph::GnuplotFigureManager());
+std::shared_ptr<Graph::GnuplotFigureManager> graph(new Graph::GnuplotFigureManager);
 
 }
 } /* namespace gcpc */
