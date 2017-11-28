@@ -63,7 +63,7 @@ public:
     return data_;
   }
 
-  void dumpData(){
+  void clearData(){
     data_.clear();
     data_.resize(dimension_);
   }
