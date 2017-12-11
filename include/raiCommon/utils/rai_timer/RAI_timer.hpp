@@ -55,6 +55,16 @@ class Timer {
     logFile.close();
   }
 
+  void dumpToStdOuput() {
+    std::ostringstream loggingdata;
+    for (int idx = 0; idx < name_.size(); idx++)
+      loggingdata << std::setw(30) << std::left << name_[idx] << "|" << "  N of samples: " << std::setw(8) << std::left
+              << frameCount[idx] << "  " << "min: " << std::setw(15) << std::left << timeMin[idx] << "max: "
+              << std::setw(15) << std::left << timeMax[idx] << "Avg: " << std::setw(15) << std::left << Avg[idx]
+              << "Total: " << std::setw(15) << std::left << timeSum[idx] << "\n";
+    std::cout<<loggingdata.str()<< "\n";
+  }
+
   void startTimer(std::string name) {
     if(disableTimer) return;
     unsigned int idx = std::find(name_.begin(), name_.end(), name) - name_.begin();
