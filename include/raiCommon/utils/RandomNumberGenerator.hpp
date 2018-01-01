@@ -15,7 +15,6 @@
 #include <cstdlib>
 #include <mutex>
 #include <Eigen/Core>
-#include <glog/logging.h>
 
 namespace rai {
 
@@ -209,8 +208,6 @@ class RandomNumberGenerator {
   void shuffleColumnsOfThreeMatrices(Eigen::Matrix<Derived1, Rows1, Cols1> &matrix1,
                                      Eigen::Matrix<Derived2, Rows2, Cols2> &matrix2,
                                      Eigen::Matrix<Derived3, Rows3, Cols3> &matrix3) {
-//    LOG_IF(FATAL, matrix1.cols() != matrix2.cols()) << "two matrices have different number of columns";
-//    LOG_IF(FATAL, matrix2.cols() != matrix3.cols()) << "two matrices have different number of columns";
 
     int colSize = int(matrix1.cols());
 
@@ -255,9 +252,6 @@ class RandomNumberGenerator {
                                      Eigen::Matrix<Derived2, Rows2, Cols2> &matrix2,
                                      Eigen::Matrix<Derived3, Rows3, Cols3> &matrix3,
                                      Eigen::Matrix<Derived3, Rows3, Cols3> &matrix4) {
-//    LOG_IF(FATAL, matrix1.cols() != matrix2.cols()) << "two matrices have different number of columns";
-//    LOG_IF(FATAL, matrix2.cols() != matrix3.cols()) << "two matrices have different number of columns";
-//    LOG_IF(FATAL, matrix3.cols() != matrix4.cols()) << "two matrices have different number of columns";
 
     int colSize = int(matrix1.cols());
 

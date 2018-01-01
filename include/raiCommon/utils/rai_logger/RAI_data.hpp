@@ -6,10 +6,9 @@
 #define RAI_RAI_DATA_HPP
 
 #include <map>
-#include "glog/logging.h"
 #include <ctime>
 #include <fstream>
-
+#include "raiCommon/utils/rai_message_logger/rai_message.hpp"
 class RAI_data{
 
 public:
@@ -32,14 +31,14 @@ public:
 
   template<typename Dtype, typename... Args>
   void appendNewData(Dtype headValue, Args... values){
-    LOG_IF(FATAL, dimension_idx >= dimension_ -1) <<"you are trying to store more variables than the number of dimension";
+    RAIFATAL_IF(dimension_idx >= dimension_ -1,"you are trying to store more variables than the number of dimension");
     data_[dimension_idx].push_back(float(headValue));
     dimension_idx++;
     appendNewData(values...);
   }
   template<typename Dtype>
   void appendNewData(Dtype value){
-    LOG_IF(FATAL, dimension_idx != dimension_ -1) <<"You are missing some data";
+    RAIFATAL_IF(dimension_idx != dimension_ -1,"You are missing some data");
     data_[dimension_idx].push_back(float(value));
     dimension_idx = 0;
   }
@@ -47,7 +46,7 @@ public:
   ///// for pointers and values
   template<typename Dtype, typename... Args>
   void appendNewData(Dtype headValue, Args... values, Dtype* data){
-    LOG_IF(FATAL, dimension_idx >= dimension_ -1) <<"you are trying to store more variables than the number of dimension";
+    RAIFATAL_IF(dimension_idx >= dimension_ -1,"you are trying to store more variables than the number of dimension");
     data_[dimension_idx].push_back(float(headValue));
     dimension_idx++;
     appendNewData(values..., data);

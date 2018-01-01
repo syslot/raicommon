@@ -6,7 +6,6 @@
 #ifndef RAI_DATA_LOGGER_HPP
 #define RAI_DATA_LOGGER_HPP
 #include <map>
-#include "glog/logging.h"
 #include <ctime>
 #include <fstream>
 #include <iomanip>
@@ -55,22 +54,18 @@ class RAI_logger {
   }
 
   float const *getData(std::string name, int dimensionIdx) {
-    LOG_IF(FATAL, dataIdx_.find(name) == dataIdx_.end())
-    << "no such Data available";
-    LOG_IF(FATAL, dimensionIdx >= getDimension(name))
-    << "Dimension index requested exceeds the dimension of the data";
+    RAIFATAL_IF(dataIdx_.find(name) == dataIdx_.end(),"no such Data available");
+    RAIFATAL_IF(dimensionIdx >= getDimension(name),"Dimension index requested exceeds the dimension of the data");
     return &data_[dataIdx_[name]]->getData()[dimensionIdx][0];
   }
 
   const std::vector<std::vector<float> > *getData(std::string name) {
-    LOG_IF(FATAL, dataIdx_.find(name) == dataIdx_.end())
-    << "no such Data available";
+    RAIFATAL_IF(dataIdx_.find(name) == dataIdx_.end(),"no such Data available");
     return &data_[dataIdx_[name]]->getData();
   }
 
   int getDataSize(std::string name) {
-    LOG_IF(FATAL, dataIdx_.find(name) == dataIdx_.end())
-    << "no such Data available";
+    RAIFATAL_IF(dataIdx_.find(name) == dataIdx_.end(), "no such Data available");
     return data_[dataIdx_[name]]->getData()[0].size();
   }
 

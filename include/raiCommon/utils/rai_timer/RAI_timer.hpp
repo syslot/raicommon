@@ -13,11 +13,11 @@
 #include <sstream>
 #include <iomanip>
 #include <algorithm>
-#include "glog/logging.h"
 #include <fstream>
 #include <cstdlib>
 #include <iostream>
 #include "RAI_timer_items.hpp"
+#include "raiCommon/utils/rai_message_logger/rai_message.hpp"
 
 #ifdef RAI_TIMER_WALL_CLOCK
 #include <sys/time.h>
@@ -86,7 +86,7 @@ class Timer {
       items_.add_item(name, idx, allParent);
     }
 
-    LOG_IF(WARNING, curTime[idx] != 0.0) << name <<": start timer is called twice consecutively. Call stopTimer first";
+    RAIWARN_IF(curTime[idx] != 0.0, name <<": start timer is called twice consecutively. Call stopTimer first");
 #ifdef RAI_TIMER_WALL_CLOCK
     gettimeofday(&timevalNow, nullptr);
     curTime[idx] = timevalNow.tv_sec + 1e-6 * timevalNow.tv_usec;
@@ -106,7 +106,7 @@ class Timer {
 #endif
     unsigned int idx = std::find(name_.begin(), name_.end(), name) - name_.begin();
     if (idx == name_.size()) {
-      LOG(WARNING) << "stop timer is called before start timer";
+      RAIWARN("stop timer is called before start timer");
       return;
     } else {
 #ifdef RAI_TIMER_WALL_CLOCK

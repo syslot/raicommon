@@ -5,6 +5,10 @@
 #ifndef RAI_STOPWATCH_HPP
 #define RAI_STOPWATCH_HPP
 #include <sys/time.h>
+#include <cstddef>
+#include <vector>
+#include <string>
+#include <algorithm>
 
 class StopWatch{
  public:

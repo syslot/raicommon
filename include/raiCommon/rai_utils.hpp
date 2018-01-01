@@ -5,6 +5,7 @@
 #ifndef RAICOMMON_RAI_UTILS_HPP
 #define RAICOMMON_RAI_UTILS_HPP
 
+#include "raiCommon/utils/rai_message_logger/rai_message.hpp"
 #include "raiCommon/utils/RandomNumberGenerator.hpp"
 #include "raiCommon/utils/StopWatch.hpp"
 #include "raiCommon/utils/rai_graph/gnuplotter.hpp"

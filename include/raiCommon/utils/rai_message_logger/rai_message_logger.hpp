@@ -13,17 +13,15 @@
 
 namespace rai {
 
-const int RSEVERITY_INFO = 0;
-const int RSEVERITY_WARN = 1;
-const int RSEVERITY_FATAL = 2;
+constexpr int RSEVERITY_INFO = 0;
+constexpr int RSEVERITY_WARN = 1;
+constexpr int RSEVERITY_FATAL = 2;
 
 class RaiMsg {
-  std::stringstream data_;
-  time_t timestamp_;
 
  public:
 
-  void stream(const char *file, int line, std::stringstream msg, int severity);
+  void stream(const char *file, const int line, std::stringstream& msg, int severity);
 
 };
 

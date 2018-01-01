@@ -8,7 +8,7 @@
 #include "gnuplot_cpp.hpp"
 #include "raiCommon/utils/rai_timer/RAI_timer_items.hpp"
 #include <vector>
-#include "glog/logging.h"
+#include "raiCommon/utils/rai_message_logger/rai_message.hpp"
 
 namespace rai {
 namespace Utils {
@@ -26,12 +26,12 @@ class GnuplotFigureManager {
   }
 
   void figure(int figureNumber, FigProp2D &properties) {
-    LOG_IF(WARNING, figureNumber>5 || figureNumber<0)<<"valid figure number between 0 and 5"<<std::endl;
+    RAIWARN_IF(figureNumber>5 || figureNumber<0,"valid figure number between 0 and 5");
     figures_[figureIdx(figureNumber)]->figure(figureNumber, properties);
   };
 
   void figure3D(int figureNumber, FigProp3D &properties) {
-    LOG_IF(WARNING, figureNumber>5 || figureNumber<0)<<"valid figure number between 0 and 5"<<std::endl;
+    RAIWARN_IF(figureNumber>5 || figureNumber<0,"valid figure number between 0 and 5");
     figures_[figureIdx(figureNumber)]->figure3D(figureNumber, properties);
   }
 
@@ -45,32 +45,32 @@ class GnuplotFigureManager {
                    int xCount,
                    int yCount,
                    std::string name) {
-    LOG_IF(WARNING, figureNumber>5 || figureNumber<0)<<"valid figure number between 0 and 5"<<std::endl;
+    RAIWARN_IF(figureNumber>5 || figureNumber<0,"valid figure number between 0 and 5");
     figures_[figureIdx(figureNumber)]->drawHeatMap(figureNumber, properties, x, y, z, xCount, yCount, name);
   }
 
   /* Only outputs to the screen*/
   void drawFigure(int figureNumber) {
-    LOG_IF(WARNING, figureNumber>5 || figureNumber<0)<<"valid figure number between 0 and 5"<<std::endl;
+    RAIWARN_IF(figureNumber>5 || figureNumber<0,"valid figure number between 0 and 5");
     figures_[figureIdx(figureNumber)]->drawFigure();
   }
 
   /*Output to the screen and to a file as well*/
   void drawFigure(int figureNumber, OutputFormat format, bool saveAllFigures = false) {
-    LOG_IF(WARNING, figureNumber>5 || figureNumber<0)<<"valid figure number between 0 and 5"<<std::endl;
+    RAIWARN_IF(figureNumber>5 || figureNumber<0,"valid figure number between 0 and 5");
     figures_[figureIdx(figureNumber)]->drawFigure(format, saveAllFigures, log_path_);
   }
 
   /* adding a curve to a graph */
   template<typename Dtype>
   void appendData(int figureNumber, Dtype *x, Dtype *y, int dataLen, std::string name) {
-    LOG_IF(WARNING, figureNumber>5 || figureNumber<0)<<"valid figure number between 0 and 5"<<std::endl;
+    RAIWARN_IF(figureNumber>5 || figureNumber<0,"valid figure number between 0 and 5");
     figures_[figureIdx(figureNumber)]->appendData(x, y, dataLen, name);
   }
 
   template<typename Dtype>
   void appendData(int figureNumber, Eigen::VectorXd& x, Eigen::VectorXd& y, std::string name) {
-    LOG_IF(WARNING, figureNumber>5 || figureNumber<0)<<"valid figure number between 0 and 5"<<std::endl;
+    RAIWARN_IF(figureNumber>5 || figureNumber<0,"valid figure number between 0 and 5");
     figures_[figureIdx(figureNumber)]->appendData(x.data(), y.data(), x.cols(), name);
   }
 
@@ -90,7 +90,7 @@ class GnuplotFigureManager {
                   PlotMethods2D plottingMethod,
                   std::string name,
                   std::string style) {
-    LOG_IF(WARNING, figureNumber>5 || figureNumber<0)<<"valid figure number between 0 and 5"<<std::endl;
+    RAIWARN_IF(figureNumber>5 || figureNumber<0,"valid figure number between 0 and 5");
     figures_[figureIdx(figureNumber)]->appendData(x, y, dataLen, plottingMethod, name, style);
   }
 
@@ -101,7 +101,7 @@ class GnuplotFigureManager {
                   PlotMethods2D plottingMethod,
                   std::string name,
                   std::string style) {
-    LOG_IF(WARNING, figureNumber>5 || figureNumber<0)<<"valid figure number between 0 and 5"<<std::endl;
+    RAIWARN_IF(figureNumber>5 || figureNumber<0,"valid figure number between 0 and 5");
     figures_[figureIdx(figureNumber)]->appendData(x.data(), y.data(), x.rows(), plottingMethod, name, style);
   }
 
@@ -116,7 +116,7 @@ class GnuplotFigureManager {
                     int dataLen,
                     std::string name,
                     std::string style) {
-    LOG_IF(WARNING, figureNumber>5 || figureNumber<0)<<"valid figure number between 0 and 5"<<std::endl;
+    RAIWARN_IF(figureNumber>5 || figureNumber<0,"valid figure number between 0 and 5");
     figures_[figureIdx(figureNumber)]->appendArrows(startingX,
                                                     startingY,
                                                     startingZ,
@@ -137,7 +137,7 @@ class GnuplotFigureManager {
                     int dataLen,
                     std::string name,
                     std::string style) {
-    LOG_IF(WARNING, figureNumber>5 || figureNumber<0)<<"valid figure number between 0 and 5"<<std::endl;
+    RAIWARN_IF(figureNumber>5 || figureNumber<0,"valid figure number between 0 and 5");
     figures_[figureIdx(figureNumber)]->appendArrows(startingX, startingY, arrowX, arrowY, dataLen, name, style);
   }
 
@@ -158,7 +158,7 @@ class GnuplotFigureManager {
                         int dataLen,
                         std::string name,
                         std::string style = "") {
-    LOG_IF(WARNING, figureNumber>5 || figureNumber<0)<<"valid figure number between 0 and 5"<<std::endl;
+    RAIWARN_IF(figureNumber>5 || figureNumber<0,"valid figure number between 0 and 5");
     figures_[figureIdx(figureNumber)]->appendDataAndStd(x, y, std, dataLen, name, style);
   }
 
@@ -175,7 +175,7 @@ class GnuplotFigureManager {
                      PlotMethods3D method,
                      std::string name,
                      std::string style = "") {
-    LOG_IF(WARNING, figureNumber>5 || figureNumber<0)<<"valid figure number between 0 and 5"<<std::endl;
+    RAIWARN_IF(figureNumber>5 || figureNumber<0,"valid figure number between 0 and 5");
     figures_[figureIdx(figureNumber)]->append3D_Data(x, y, z, dataLen, heatOn, method, name, style);
   }
 
@@ -187,7 +187,7 @@ class GnuplotFigureManager {
                     std::string title,
                     std::string unit,
                     std::string style = "rgb 33,13,10", std::string position = "", std::string size = "") {
-    LOG_IF(WARNING, figureNumber>5 || figureNumber<0)<<"valid figure number between 0 and 5"<<std::endl;
+    RAIWARN_IF(figureNumber>5 || figureNumber<0,"valid figure number between 0 and 5");
     figures_[figureIdx(figureNumber)]->drawPieChart(time, name, style, title, unit, position, size);
   }
 
@@ -195,7 +195,7 @@ class GnuplotFigureManager {
   void drawPieChartWith_RAI_Timer(int figureNumber,
                                   Timer_items &items,
                                   FigPropPieChart& prop) {
-    LOG_IF(WARNING, figureNumber>5 || figureNumber<0)<<"valid figure number between 0 and 5"<<std::endl;
+   RAIWARN_IF(figureNumber>5 || figureNumber<0,"valid figure number between 0 and 5");
     figures_[figureIdx(figureNumber)]->drawPieChartWithSubCate(figureNumber, items, prop);
   }
 

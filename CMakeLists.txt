@@ -29,10 +29,12 @@ link_directories(/usr/lib)
 ##############################
 ########### Utils ############
 ##############################
+add_library(rai_message_logger STATIC src/utils/rai_message_logger/rai_message_logger.cpp)
 add_library(rai_graph STATIC src/utils/rai_graph/gnuplotter.cpp)
 add_library(rai_timer STATIC src/utils/rai_timer/RAI_timer.cpp)
 add_library(rai_logger STATIC src/utils/rai_logger/RAI_logger.cpp)
-set(rai_common rai_graph rai_timer rai_logger)
+
+set(rai_common  rai_graph rai_timer rai_logger rai_message_logger)
 set(RAICOMMON_LIB_DIR ${CMAKE_BINARY_DIR}/lib CACHE PATH "rai lib directory")
 
 # --------------------------------------------------------------------
