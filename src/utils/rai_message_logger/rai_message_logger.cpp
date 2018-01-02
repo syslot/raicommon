@@ -21,7 +21,7 @@ namespace rai {
     while((filename != filename_start) && (*(filename - 1) != '/'))
       filename--;
 
-    std::ostringstream printout;
+    std::stringstream printout;
 
     std::string color;
 
@@ -47,7 +47,10 @@ namespace rai {
              << filename
              <<':'<<line<<"] "<<color<<msg.str()<<"\033[0m\n";
 
-    std::cout<<printout.str();
+    if(LOGTOFILE)
+      log<<printout.str();
+    else
+      std::cout<<printout.str();
 
     if(severity == RSEVERITY_FATAL)
       exit(0);

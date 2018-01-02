@@ -50,7 +50,7 @@ class Timer {
     for (int idx = 0; idx < name_.size(); idx++)
       logFile << std::setw(30) << std::left << name_[idx] << "|" << "  N of samples: " << std::setw(8) << std::left
               << frameCount[idx] << "  " << "min: " << std::setw(15) << std::left << timeMin[idx] << "max: "
-              << std::setw(15) << std::left << timeMax[idx] << "Avg: " << std::setw(15) << std::left << Avg[idx]
+              << std::setw(15) << std::left << timeMax[idx] << "Avg: " << std::setw(15) << std::left << timeSum[idx] / (float) frameCount[idx]
               << "Total: " << std::setw(15) << std::left << timeSum[idx] << "\n";
     logFile.close();
   }
@@ -60,7 +60,7 @@ class Timer {
     for (int idx = 0; idx < name_.size(); idx++)
       loggingdata << std::setw(30) << std::left << name_[idx] << "|" << "  N of samples: " << std::setw(8) << std::left
               << frameCount[idx] << "  " << "min: " << std::setw(15) << std::left << timeMin[idx] << "max: "
-              << std::setw(15) << std::left << timeMax[idx] << "Avg: " << std::setw(15) << std::left << Avg[idx]
+              << std::setw(15) << std::left << timeMax[idx] << "Avg: " << std::setw(15) << std::left << timeSum[idx] / (float) frameCount[idx]
               << "Total: " << std::setw(15) << std::left << timeSum[idx] << "\n";
     std::cout<<loggingdata.str()<< "\n";
   }
@@ -74,7 +74,6 @@ class Timer {
       timeMax.push_back(0.0);
       timeSum.push_back(0.0);
       frameCount.push_back(0);
-      Avg.push_back(0.0f);
       curTime.push_back(0.0);
       curTime_ns.push_back(0.0);
       allParent.clear();
@@ -121,7 +120,6 @@ class Timer {
     timeMin[idx] = std::min(timeMin[idx], timeLaps);
     timeMax[idx] = std::max(timeMax[idx], timeLaps);
     frameCount[idx]++;
-    Avg[idx] = timeSum[idx] / (float) frameCount[idx];
   }
 
   std::string getCurrentDataAndTime() {
@@ -214,7 +212,6 @@ class Timer {
   std::vector<double> timeMax;
   std::vector<int> frameCount;
   std::vector<int> allParent;
-  std::vector<double> Avg;
   std::vector<double> curTime;
   std::vector<double> curTime_ns;
   double timeLaps;

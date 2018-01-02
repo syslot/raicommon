@@ -17,12 +17,16 @@ constexpr int RSEVERITY_INFO = 0;
 constexpr int RSEVERITY_WARN = 1;
 constexpr int RSEVERITY_FATAL = 2;
 
+bool LOGTOFILE = false;
+
 class RaiMsg {
 
  public:
 
   void stream(const char *file, const int line, std::stringstream& msg, int severity);
 
+ private:
+  std::stringstream log;
 };
 
 }
