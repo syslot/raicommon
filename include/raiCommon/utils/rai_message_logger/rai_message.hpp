@@ -13,12 +13,13 @@
 #define RAIINFO(msg) RAIMSG(msg, rai::RSEVERITY_INFO)
 #define RAIWARN(msg) RAIMSG(msg, rai::RSEVERITY_WARN)
 #define RAIFATAL(msg) RAIMSG(msg, rai::RSEVERITY_FATAL)
+#define RAIRETURN(con, msg) RAIMSG(msg, rai::RSEVERITY_INFO)return;
 
 #define RAIINFO_IF(con, msg) if(con) RAIMSG(msg, rai::RSEVERITY_INFO)
 #define RAIWARN_IF(con, msg) if(con) RAIMSG(msg, rai::RSEVERITY_WARN)
 #define RAIFATAL_IF(con, msg) if(con) RAIMSG(msg, rai::RSEVERITY_FATAL)
-
 #define RAIASSERT(con, msg) if(!(con)) RAIMSG(msg, rai::RSEVERITY_FATAL)
+#define RAIRETURN_IF(con, msg) if(con) {RAIMSG(msg, rai::RSEVERITY_INFO)return;}
 
 #ifdef RAIDEBUG
   #define DRAIINFO(msg) RAIINFO(msg)
@@ -30,6 +31,8 @@
   #define DRAIFATAL_IF(con, msg) RAIFATAL_IF(con, msg)
 
   #define DRAIASSERT(con, msg) RAIASSERT(con, msg)
+  #define DRAIRETURN_IF(con, msg) RAIINFO_IF(con, msg) return;
+
 #else
   #define DRAIINFO(msg)
   #define DRAIWARN(msg)
@@ -40,6 +43,7 @@
   #define DRAIFATAL_IF(con, msg)
 
   #define DRAIASSERT(con, msg)
+  #define DRAIRETURN_IF(con, msg)
 #endif
 
 #endif //RAICOMMON_RAI_MESSAGE_HPP
