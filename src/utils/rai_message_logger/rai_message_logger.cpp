@@ -47,9 +47,9 @@ namespace rai {
              << filename
              <<':'<<line<<"] "<<color<<msg.str()<<"\033[0m\n";
 
-    if(LOGTOFILE)
-      log<<printout.str();
-    else
+//    if(RLOGTOFILE)
+//      log<<printout.str();
+//    else
       std::cout<<printout.str();
 
     if(severity == RSEVERITY_FATAL)
