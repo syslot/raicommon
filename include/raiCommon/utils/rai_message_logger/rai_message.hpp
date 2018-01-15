@@ -21,6 +21,8 @@
 #define RAIASSERT(con, msg) if(!(con)) RAIMSG(msg, rai::RSEVERITY_FATAL)
 #define RAIRETURN_IF(con, msg) if(con) {RAIMSG(msg, rai::RSEVERITY_INFO)return;}
 
+#define DRAIISNAN
+
 #ifdef RAIDEBUG
   #define DRAIINFO(msg) RAIINFO(msg)
   #define DRAIWARN(msg) RAIIWARN(msg)
