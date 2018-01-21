@@ -25,11 +25,11 @@
 
 #ifdef RAIDEBUG
   #define DRAIINFO(msg) RAIINFO(msg)
-  #define DRAIWARN(msg) RAIIWARN(msg)
+  #define DRAIWARN(msg) RAIWARN(msg)
   #define DRAIFATAL(msg) RAIFATAL(msg)
 
   #define DRAIINFO_IF(con, msg) RAIINFO_IF(con, msg)
-  #define DRAIWARN_IF(con, msg) RAIIWARN_IF(con, msg)
+  #define DRAIWARN_IF(con, msg) RAIWARN_IF(con, msg)
   #define DRAIFATAL_IF(con, msg) RAIFATAL_IF(con, msg)
 
   #define DRAIASSERT(con, msg) RAIASSERT(con, msg)
