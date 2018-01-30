@@ -42,8 +42,6 @@ export(PACKAGE ${PROJECT_NAME})
 
 # build tree
 set(CONF_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/include")
-
-# install directory for libraries
 set(CONF_LIBRARIES_DIR "${CMAKE_INSTALL_PREFIX}/lib")
 
 # create raiCommonConfig.cmake.in
