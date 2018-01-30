@@ -44,7 +44,7 @@ export(PACKAGE ${PROJECT_NAME})
 set(CONF_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/include")
 
 # install directory for libraries
-set(RC_CONF_LIBRARIES_DIR "${CMAKE_INSTALL_PREFIX}/lib")
+set(CONF_LIBRARIES_DIR "${CMAKE_INSTALL_PREFIX}/lib")
 
 # create raiCommonConfig.cmake.in
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/${CONFIG_FILE_NAME}.in
