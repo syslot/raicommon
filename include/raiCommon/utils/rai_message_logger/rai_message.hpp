@@ -21,7 +21,6 @@
 #define RAIASSERT(con, msg) if(!(con)) RAIMSG(msg, rai::RSEVERITY_FATAL)
 #define RAIRETURN_IF(con, msg) if(con) {RAIMSG(msg, rai::RSEVERITY_INFO)return;}
 
-#define DRAIISNAN
 
 #ifdef RAIDEBUG
   #define DRAIINFO(msg) RAIINFO(msg)
@@ -34,7 +33,7 @@
 
   #define DRAIASSERT(con, msg) RAIASSERT(con, msg)
   #define DRAIRETURN_IF(con, msg) RAIINFO_IF(con, msg) return;
-
+  #define DRAIISNAN(val) RAIFATAL_IF(isnan(val), #val<<" is nan");
 #else
   #define DRAIINFO(msg)
   #define DRAIWARN(msg)
@@ -46,6 +45,8 @@
 
   #define DRAIASSERT(con, msg)
   #define DRAIRETURN_IF(con, msg)
+
+  #define DRAIISNAN
 #endif
 
 #endif //RAICOMMON_RAI_MESSAGE_HPP

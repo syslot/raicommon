@@ -1,8 +1,5 @@
 #!/bin/bash
 
-sudo apt-get install libeigen3-dev
-
-
 # GNUPLOT
 if [ "$yrelease" -eq "16" ]; then
     sudo apt-get install $APT_GET_FLAGS gnuplot5
@@ -21,4 +18,11 @@ else
      cd $RAI_ROOT
     fi
 fi
+
+sudo rm -rf build
+mkdir build
+cd build
+cmake ..
+sudo make install -j
+cd ..
 
