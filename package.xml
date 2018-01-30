@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package format="2">
+  <!--Package Header-->
+  <name>rai_common</name>
+  <version>0.0.0</version>
+  <description>The raiCommon CMake package.</description>
+  <license>Proprietary</license>
+  <url type="website">http://bitbucket.org/leggedrobotics/rai</url>
+  <maintainer email="jhwangbo@ethz.ch">Jemin Hwangbo</maintainer>
+  <maintainer email="tsounisv@ethz.ch">Vassilios Tsounis</maintainer>
+  <author email="jhwangbo@ethz.ch">Jemin Hwangbo</author>
+  <author email="tsounisv@ethz.ch">Vassilios Tsounis</author>
+  <!--Package Dependencies-->
+  <buildtool_depend>cmake</buildtool_depend>
+  <exec_depend>catkin</exec_depend>
+  <!--Package Export-->
+  <export>
+    <build_type>cmake</build_type>
+  </export>
+</package>

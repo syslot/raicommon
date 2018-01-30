@@ -30,11 +30,17 @@ link_directories(/usr/lib)
 ########### Utils ############
 ##############################
 add_library(rai_message_logger STATIC src/utils/rai_message_logger/rai_message_logger.cpp)
-add_library(rai_graph STATIC src/utils/rai_graph/gnuplotter.cpp)
-add_library(rai_timer STATIC src/utils/rai_timer/RAI_timer.cpp)
-add_library(rai_logger STATIC src/utils/rai_logger/RAI_logger.cpp)
 
-set(rai_common  rai_graph rai_timer rai_logger rai_message_logger)
+add_library(rai_graph STATIC src/utils/rai_graph/gnuplotter.cpp)
+target_link_libraries(rai_graph rai_message_logger)
+
+add_library(rai_timer STATIC src/utils/rai_timer/RAI_timer.cpp)
+target_link_libraries(rai_timer rai_message_logger)
+
+add_library(rai_logger STATIC src/utils/rai_logger/RAI_logger.cpp)
+target_link_libraries(rai_logger rai_message_logger)
+
+set(rai_common rai_message_logger rai_graph rai_timer rai_logger)
 set(RAICOMMON_LIB_DIR ${CMAKE_BINARY_DIR}/lib CACHE PATH "rai lib directory")
 
 # --------------------------------------------------------------------
@@ -44,7 +50,10 @@ export(PACKAGE ${PROJECT_NAME})
 # build tree
 set(CONF_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/include")
 
-# create raiGraphicsOpenglConfig.cmake.in
+# install directory for libraries
+set(CONF_LIBRARIES_DIR "${CMAKE_INSTALL_PREFIX}/lib")
+
+# create raiCommonConfig.cmake.in
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/${CONFIG_FILE_NAME}.in
         ${CMAKE_CURRENT_BINARY_DIR}/${CONFIG_FILE_NAME} @ONLY)
 
@@ -58,4 +67,3 @@ install(TARGETS                 ${rai_common}
 # install raiGraphicsConfig.cmake file to config cmake path
 install(FILES           ${CMAKE_CURRENT_BINARY_DIR}/${CONFIG_FILE_NAME}
         DESTINATION     ${CMAKE_PACKAGE_INSTALL_DIR})
-
