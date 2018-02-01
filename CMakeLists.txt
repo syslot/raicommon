@@ -22,8 +22,14 @@ set(TARGETS_LIB_NAME ${PROJECT_NAME}Lib)
 ##############################
 ############ pkgs ############
 ##############################
-find_package( Eigen3 REQUIRED )
-include_directories( ${EIGEN3_INCLUDE_DIR} )
+if(NOT DEFINED EIGEN3_INCLUDE_DIR)
+  message("Set to using default Eigen3:")
+  find_package( Eigen3 REQUIRED )
+else()
+  message("Set to using user specified Eigen3:")
+endif()
+message("EIGEN3_INCLUDE_DIR = " ${EIGEN3_INCLUDE_DIR})
+include_directories(${EIGEN3_INCLUDE_DIR})
 link_directories(/usr/lib)
 
 ##############################
