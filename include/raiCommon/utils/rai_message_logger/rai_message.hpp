@@ -34,6 +34,7 @@
   #define DRAIASSERT(con, msg) RAIASSERT(con, msg)
   #define DRAIRETURN_IF(con, msg) RAIINFO_IF(con, msg) return;
   #define DRAIISNAN(val) RAIFATAL_IF(isnan(val), #val<<" is nan");
+  #define DRAIISNAN_MSG(val, msg) RAIFATAL_IF(isnan(val), msg);
 #else
   #define DRAIINFO(msg)
   #define DRAIWARN(msg)
@@ -45,7 +46,7 @@
 
   #define DRAIASSERT(con, msg)
   #define DRAIRETURN_IF(con, msg)
-
+  #define DRAIISNAN_MSG(val, msg)
   #define DRAIISNAN
 #endif
 
