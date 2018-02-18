@@ -78,6 +78,10 @@ public:
     logFile<<"\n";
   }
 
+  std::string getName () {
+    return name_;
+  }
+
 private:
   int dimension_ = 1;
   std::string name_;

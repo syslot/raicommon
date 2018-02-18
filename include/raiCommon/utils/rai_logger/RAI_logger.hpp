@@ -16,25 +16,47 @@
 namespace rai {
 namespace Utils {
 
+enum LoggingOption {
+  ONEFILE_FOR_ONEDATA = 1<<(1)
+};
+
 class RAI_logger {
 
  public:
-  RAI_logger() {};
+  RAI_logger() {
+    file_name_ = "dataLog";
+  };
+  
   ~RAI_logger() {
 
-    std::ostringstream logPath;
-    logPath << log_path_ << "/dataLog.rlog";
-    std::ofstream logFile;
-    logFile.open(logPath.str().c_str());
+    if(flags_ & ONEFILE_FOR_ONEDATA) {
+      for (int id = 0; id < data_.size(); id++) {
+        std::ostringstream logPath;
+        logPath << log_path_ << "/"<<file_name_<<"_"<<data_[id]->getName()<<".rlog";
+        std::ofstream logFile;
+        logFile.open(logPath.str().c_str());
+        logFile<<"Executable: "<<getExePath()<< "\n\n";
+        data_[id]->write2File(logFile);
+        delete data_[id];
+      }
+    } else {
+      std::ostringstream logPath;
+      logPath << log_path_ << "/"<<file_name_<<".rlog";
+      std::ofstream logFile;
+      logFile.open(logPath.str().c_str());
 
-    logFile<<"Executable: "<<getExePath()<< "\n\n";
+      logFile<<"Executable: "<<getExePath()<< "\n\n";
 
-    for (int id = 0; id < data_.size(); id++)
-      data_[id]->write2File(logFile);
+      for (int id = 0; id < data_.size(); id++)
+        data_[id]->write2File(logFile);
 
-    for (int id = 0; id < data_.size(); id++)
-      delete data_[id];
-  };
+      for (int id = 0; id < data_.size(); id++)
+        delete data_[id];
+    }
+
+  }
+
+  void setOptions(int flag) {flags_ = flag;}
 
   /* names are separated by "/". ex) RAI/DDPG/LearningCurves */
   void addVariableToLog(int dim, std::string name, std::string description) {
@@ -93,11 +115,18 @@ class RAI_logger {
     log_path_ = path;
   }
 
+  void setLogFileName(std::string& name){
+    file_name_ = name;
+  }
+
  private:
   std::vector<RAI_data *> data_;
   std::map<std::string, int> dataIdx_;
   int numberOfData_ = 0;
+  int flags_=0;
   std::string log_path_;
+  std::string file_name_;
+
 
   std::string getExePath()
   {
