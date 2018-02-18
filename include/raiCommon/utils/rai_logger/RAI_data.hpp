@@ -9,6 +9,8 @@
 #include <ctime>
 #include <fstream>
 #include "raiCommon/utils/rai_message_logger/rai_message.hpp"
+#include <vector>
+
 class RAI_data{
 
 public:
