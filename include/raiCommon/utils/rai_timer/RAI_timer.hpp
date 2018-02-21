@@ -39,11 +39,12 @@ class Timer {
     clock_gettime(RAI_CLOCK_TYPE, &timespec);
     processStartTime_ = timespec.tv_sec + 1e-9 * timespec.tv_nsec;
 #endif
+    file_name_ = "timerLog";
   }
 
   ~Timer() {
     std::ostringstream logPath;
-    logPath << log_path_ << "/timerLog.rlog";
+    logPath << log_path_ << "/" << file_name_ << ".rlog";
     std::ofstream logFile;
     logFile.open(logPath.str().c_str());
     logFile << "logging in seconds" << "\n";
@@ -158,6 +159,10 @@ class Timer {
     log_path_ = path;
   }
 
+  void setLogFileName(std::string& name) {
+    file_name_ = name;
+  }
+
   void disable() {
     disableTimer = true;
   }
@@ -216,6 +221,7 @@ class Timer {
   std::vector<double> curTime_ns;
   double timeLaps;
   std::string log_path_;
+  std::string file_name_;
   Timer_items items_;
   bool disableTimer = false;
   double processStartTime_;
