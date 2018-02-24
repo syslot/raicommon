@@ -26,6 +26,10 @@ find_package( Eigen3 REQUIRED )
 include_directories( ${EIGEN3_INCLUDE_DIR} )
 link_directories(/usr/lib)
 
+find_package( Boost COMPONENTS system filesystem REQUIRED )
+include_directories( ${Boost_INCLUDE_DIR} )
+link_directories(${Boost_LIBRARY_DIRS})
+
 ##############################
 ########### Utils ############
 ##############################
@@ -33,11 +37,12 @@ add_library(rai_graph STATIC src/utils/rai_graph/gnuplotter.cpp)
 add_library(rai_timer STATIC src/utils/rai_timer/RAI_timer.cpp)
 add_library(rai_logger STATIC src/utils/rai_logger/RAI_logger.cpp)
 
-set(rai_common  rai_graph rai_timer rai_logger)
+set(rai_common rai_graph rai_timer rai_logger)
+set(rai_common_link ${rai_common} ${Boost_LIBRARIES})
 set(RAICOMMON_LIB_DIR ${CMAKE_BINARY_DIR}/lib CACHE PATH "rai lib directory")
 
 # --------------------------------------------------------------------
-# package raiGraphics
+# package raiCommon
 export(PACKAGE ${PROJECT_NAME})
 
 # build tree
@@ -58,3 +63,7 @@ install(TARGETS                 ${rai_common}
 install(FILES           ${CMAKE_CURRENT_BINARY_DIR}/${CONFIG_FILE_NAME}
         DESTINATION     ${CMAKE_PACKAGE_INSTALL_DIR})
 
+# --------------------------------------------------------------------
+# test
+add_executable(loggerTest test/loggerTest.cpp)
+target_link_libraries(loggerTest ${rai_common_link})
