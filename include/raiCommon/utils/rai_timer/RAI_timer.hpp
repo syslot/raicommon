@@ -16,6 +16,7 @@
 #include <fstream>
 #include <cstdlib>
 #include <iostream>
+#include <boost/filesystem.hpp>
 #include "RAI_timer_items.hpp"
 #include "raiCommon/utils/rai_message_logger/rai_message.hpp"
 
@@ -45,6 +46,13 @@ class Timer {
   ~Timer() {
     std::ostringstream logPath;
     logPath << log_path_ << "/" << file_name_ << ".rlog";
+
+    // create path directories if not exists
+    boost::filesystem::path dirPath(log_path_.c_str());
+
+    if(!boost::filesystem::exists(dirPath))
+      boost::filesystem::create_directories(dirPath);
+
     std::ofstream logFile;
     logFile.open(logPath.str().c_str());
     logFile << "logging in seconds" << "\n";
@@ -155,6 +163,10 @@ class Timer {
     return items_;
   }
 
+  void setCreatePathDir(bool option) {
+    createPathDir_ = option;
+  }
+
   void setLogPath(std::string& path){
     log_path_ = path;
   }
@@ -225,6 +237,8 @@ class Timer {
   Timer_items items_;
   bool disableTimer = false;
   double processStartTime_;
+
+  bool createPathDir_ = false;
 
 };
 

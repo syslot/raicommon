@@ -10,6 +10,7 @@
 #include <fstream>
 #include <iomanip>
 #include <limits.h>
+#include <boost/filesystem.hpp>
 #include "RAI_data.hpp"
 #include <iostream>
 
@@ -28,6 +29,12 @@ class RAI_logger {
   };
   
   ~RAI_logger() {
+
+    // create path directories if not exists
+    boost::filesystem::path dirPath(log_path_.c_str());
+
+    if(!boost::filesystem::exists(dirPath))
+      boost::filesystem::create_directories(dirPath);
 
     if(flags_ & ONEFILE_FOR_ONEDATA) {
       for (int id = 0; id < data_.size(); id++) {
@@ -111,6 +118,10 @@ class RAI_logger {
     return dataAndTime.str().c_str();
   }
 
+  void setCreatePathDir(bool option) {
+    createPathDir_ = option;
+  }
+
   void setLogPath(std::string& path){
     log_path_ = path;
   }
@@ -127,6 +138,7 @@ class RAI_logger {
   std::string log_path_;
   std::string file_name_;
 
+  bool createPathDir_ = false;
 
   std::string getExePath()
   {
