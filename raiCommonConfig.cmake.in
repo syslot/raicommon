@@ -3,3 +3,6 @@
 
 set (RAI_COMMON_INCLUDE_DIR  "@CONF_INCLUDE_DIRS@")
 set (RAI_COMMON_LINK "@rai_common_link@")
+
+find_package( Boost COMPONENTS system filesystem REQUIRED )
+include_directories( ${Boost_INCLUDE_DIR} )
