@@ -74,7 +74,7 @@ public:
     logFile<<"// "<<description_<< "\n";
     for(int timeID = 0; timeID < data_[0].size(); timeID++) {
       for (int dimensionID = 0; dimensionID < dimension_; dimensionID++)
-        logFile << data_[dimensionID][timeID] << "  ";
+        logFile << std::setprecision(9) << data_[dimensionID][timeID] << "  ";
       logFile<<"\n";
     }
     logFile<<"\n";
