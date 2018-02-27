@@ -33,7 +33,7 @@ class RAI_logger {
     // create path directories if not exists
     boost::filesystem::path dirPath(log_path_.c_str());
 
-    if(!boost::filesystem::exists(dirPath))
+    if(createPathDir_ && !boost::filesystem::exists(dirPath))
       boost::filesystem::create_directories(dirPath);
 
     if(flags_ & ONEFILE_FOR_ONEDATA) {
@@ -135,7 +135,7 @@ class RAI_logger {
   std::map<std::string, int> dataIdx_;
   int numberOfData_ = 0;
   int flags_=0;
-  std::string log_path_;
+  std::string log_path_ = "/tmp";
   std::string file_name_;
 
   bool createPathDir_ = false;
