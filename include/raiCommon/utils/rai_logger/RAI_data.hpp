@@ -9,6 +9,8 @@
 #include <ctime>
 #include <fstream>
 #include "raiCommon/utils/rai_message_logger/rai_message.hpp"
+#include <vector>
+
 class RAI_data{
 
 public:
@@ -76,6 +78,10 @@ public:
       logFile<<"\n";
     }
     logFile<<"\n";
+  }
+
+  std::string getName () {
+    return name_;
   }
 
 private:
