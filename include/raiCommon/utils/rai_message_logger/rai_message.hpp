@@ -4,6 +4,7 @@
 
 #ifndef RAICOMMON_RAI_MESSAGE_HPP
 #define RAICOMMON_RAI_MESSAGE_HPP
+
 #include "rai_message_logger.hpp"
 
 #define RAIMSG(msg, severity) { std::stringstream raimessagestream; \
@@ -50,4 +51,4 @@
   #define DRAIISNAN
 #endif
 
-#endif //RAICOMMON_RAI_MESSAGE_HPP
+#endif // RAICOMMON_RAI_MESSAGE_HPP
