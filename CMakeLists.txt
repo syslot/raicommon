@@ -39,8 +39,8 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 # Set include directories
 include_directories(
-  ${${PROJECT_NAME}_INCLUDE_DIRS}
   ${CMAKE_CURRENT_SOURCE_DIR}/include
+  ${${PROJECT_NAME}_INCLUDE_DIRS}
 )
 
 # Set search paths for link libraries
@@ -73,10 +73,10 @@ set(CMAKE_PACKAGE_CONFIG_INSTALL_DIR
   "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME}/cmake"
   CACHE PATH "The directory relative to CMAKE_PREFIX_PATH where ${PROJECT_NAME}Config.cmake is installed")
 
-# Set variables for the package configuration file
+# Set name of the package configuration file
 set(CONFIG_FILE_NAME ${PROJECT_NAME}Config.cmake)
 
-# Configured paths
+# Set the configuration variables
 if (DEFINED USE_EXPORTED_LIBS)
   list(APPEND ${PROJECT_NAME}_INCLUDE_DIRS "${CMAKE_INSTALL_PREFIX}/include")
 else()
