@@ -11,13 +11,16 @@
 cmake_minimum_required(VERSION 3.5)
 project(raiCommon)
 
+# Include CMake helper packages and utilities
+include(GNUInstallDirs)
+
 #==
 # Dependencies
 #==
 
 # Find Eigen3 only if not already specified
 if(NOT DEFINED EIGEN3_INCLUDE_DIR)
-  find_package( Eigen3 REQUIRED )
+  find_package(Eigen3 REQUIRED)
   message(STATUS "Found Eigen3: ${EIGEN3_INCLUDE_DIR}")
 else()
   message(STATUS "User specified Eigen3: ${EIGEN3_INCLUDE_DIR}")
