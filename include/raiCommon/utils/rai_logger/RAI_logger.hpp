@@ -133,6 +133,7 @@ class RAI_logger {
   int flags_=0;
   std::string log_path_ = "/tmp";
   std::string file_name_;
+
   std::string getExePath()
   {
     char result[ 500 ];
