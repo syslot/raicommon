@@ -21,11 +21,19 @@ include(GNUInstallDirs)
 # Find Eigen3 only if not already specified
 if(NOT DEFINED EIGEN3_INCLUDE_DIR)
   find_package(Eigen3 REQUIRED)
-  message(STATUS "Found Eigen3: ${EIGEN3_INCLUDE_DIR}")
+  message(STATUS "${PROJECT_NAME}: Found Eigen3: ${EIGEN3_INCLUDE_DIR}")
 else()
-  message(STATUS "User specified Eigen3: ${EIGEN3_INCLUDE_DIR}")
+  message(STATUS "${PROJECT_NAME}: User specified Eigen3: ${EIGEN3_INCLUDE_DIR}")
 endif()
 list(APPEND ${PROJECT_NAME}_INCLUDE_DIRS ${EIGEN3_INCLUDE_DIR})
+
+# Boost dependencies
+find_package(Boost COMPONENTS thread system filesystem REQUIRED)
+if (Boost_FOUND)
+  message(STATUS "${PROJECT_NAME}: Found Boost!")
+  list(APPEND ${PROJECT_NAME}_INCLUDE_DIRS ${Boost_INCLUDE_DIR})
+  list(APPEND ${PROJECT_NAME}_LIBRARIES ${Boost_LIBRARIES})
+endif()
 
 #==
 # Build configuration
@@ -49,6 +57,11 @@ include_directories(
 # Set search paths for link libraries
 link_directories(
   /usr/lib
+)
+
+# Set the link targets
+link_libraries(
+  ${${PROJECT_NAME}_LIBRARIES}
 )
 
 #==
