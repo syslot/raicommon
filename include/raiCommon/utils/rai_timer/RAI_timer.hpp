@@ -32,6 +32,9 @@ namespace Utils {
 
 class Timer {
  public:
+
+  typedef int TimerItem;
+
   Timer() : items_("Computation", -1) {
 #ifdef RAI_TIMER_WALL_CLOCK
     gettimeofday(&timevalNow, nullptr);
@@ -68,18 +71,54 @@ class Timer {
     std::ostringstream loggingdata;
     for (int idx = 0; idx < name_.size(); idx++)
       loggingdata << std::setw(30) << std::left << name_[idx] << "|" << "  N of samples: " << std::setw(8) << std::left
-              << frameCount[idx] << "  " << "min: " << std::setw(15) << std::left << timeMin[idx] << "max: "
-              << std::setw(15) << std::left << timeMax[idx] << "Avg: " << std::setw(15) << std::left << timeSum[idx] / (float) frameCount[idx]
-              << "Total: " << std::setw(15) << std::left << timeSum[idx] << "\n";
-    std::cout<<loggingdata.str()<< "\n";
+                  << frameCount[idx] << "  " << "min: " << std::setw(15) << std::left << timeMin[idx] << "max: "
+                  << std::setw(15) << std::left << timeMax[idx] << "Avg: " << std::setw(15) << std::left << timeSum[idx] / (float) frameCount[idx]
+                  << "Total: " << std::setw(15) << std::left << timeSum[idx] << "\n";
+    std::cout << loggingdata.str() << "\n";
+  }
+
+  TimerItem createTimedItem(std::string name) {
+    name_.push_back(name);
+    timeMin.push_back(DBL_MAX);
+    timeMax.push_back(0.0);
+    timeSum.push_back(0.0);
+    frameCount.push_back(0);
+    curTime.push_back(0.0);
+    curTime_ns.push_back(0.0);
+    allParent.clear();
+
+    for (int itemID = 0; itemID < name_.size(); itemID++)
+      if (curTime[itemID] != 0)
+        allParent.push_back(itemID);
+
+    items_.add_item(name, name_.size() - 1, allParent);
+
+    return name_.size() - 1;
+  }
+
+  void startTimer(TimerItem item) {
+//    if (disableTimer) return;
+    clock_gettime(RAI_CLOCK_TYPE, &timespec);
+    curTime[item] = timespec.tv_sec;
+    curTime_ns[item] = timespec.tv_nsec;
+  }
+
+  void stopTimer(TimerItem item) {
+//    if (disableTimer) return;
+    clock_gettime(RAI_CLOCK_TYPE, &timespec);
+    timeLaps = timespec.tv_sec - curTime[item] + 1e-9 * (timespec.tv_nsec - curTime_ns[item]);
+    timeSum[item] += timeLaps;
+    timeMin[item] = (timeMin[item] > timeLaps) ? timeLaps : timeMin[item];
+    timeMax[item] = (timeMax[item] > timeLaps) ? timeMax[item] : timeLaps;
+    frameCount[item]++;
   }
 
   void startTimer(std::string name) {
-    if(disableTimer) return;
+    if (disableTimer) return;
     unsigned int idx = std::find(name_.begin(), name_.end(), name) - name_.begin();
     if (idx == name_.size()) {
       name_.push_back(name);
-      timeMin.push_back(FLT_MAX);
+      timeMin.push_back(DBL_MAX);
       timeMax.push_back(0.0);
       timeSum.push_back(0.0);
       frameCount.push_back(0);
@@ -94,7 +133,7 @@ class Timer {
       items_.add_item(name, idx, allParent);
     }
 
-    RAIWARN_IF(curTime[idx] != 0.0, name <<": start timer is called twice consecutively. Call stopTimer first");
+    DRAIWARN_IF(curTime[idx] != 0.0, name << ": start timer is called twice consecutively. Call stopTimer first");
 #ifdef RAI_TIMER_WALL_CLOCK
     gettimeofday(&timevalNow, nullptr);
     curTime[idx] = timevalNow.tv_sec + 1e-6 * timevalNow.tv_usec;
@@ -106,7 +145,7 @@ class Timer {
   }
 
   void stopTimer(std::string name) {
-    if(disableTimer) return;
+    if (disableTimer) return;
 #ifdef RAI_TIMER_WALL_CLOCK
     gettimeofday(&timevalNow, nullptr);
 #else
@@ -114,7 +153,7 @@ class Timer {
 #endif
     unsigned int idx = std::find(name_.begin(), name_.end(), name) - name_.begin();
     if (idx == name_.size()) {
-      RAIWARN("stop timer is called before start timer");
+      DRAIWARN("stop timer is called before start timer");
       return;
     } else {
 #ifdef RAI_TIMER_WALL_CLOCK
@@ -149,13 +188,12 @@ class Timer {
     return name_;
   }
 
-
-  Timer_items& getTimedItems(){
-    for(int i=0; i< name_.size(); i++)
+  Timer_items &getTimedItems() {
+    for (int i = 0; i < name_.size(); i++)
       items_.update_time_sum_(i, timeSum[i]);
 
     double totalTime = 0;
-    for(int i=0; i< items_.subItems_.size(); i++)
+    for (int i = 0; i < items_.subItems_.size(); i++)
       totalTime += items_.subItems_[i].time_sum_;
 
     items_.update_time_sum_(-1, totalTime);
@@ -167,7 +205,7 @@ class Timer {
     log_path_ = path;
   }
 
-  void setLogFileName(std::string& name) {
+  void setLogFileName(std::string &name) {
     file_name_ = name;
   }
 
@@ -179,7 +217,7 @@ class Timer {
     disableTimer = false;
   }
 
-  double getGlobalElapsedTimeInSec(){
+  double getGlobalElapsedTimeInSec() {
     double currentTime;
 #ifdef RAI_TIMER_WALL_CLOCK
     gettimeofday(&timevalNow, nullptr);
@@ -191,7 +229,7 @@ class Timer {
     return currentTime - processStartTime_;
   }
 
-  double getGlobalElapsedTimeInMin(){
+  double getGlobalElapsedTimeInMin() {
     double currentTime;
 #ifdef RAI_TIMER_WALL_CLOCK
     gettimeofday(&timevalNow, nullptr);
@@ -200,10 +238,10 @@ class Timer {
     clock_gettime(RAI_CLOCK_TYPE, &timespec);
     currentTime = timespec.tv_sec + 1e-9 * timespec.tv_nsec;
 #endif
-    return (currentTime - processStartTime_)/60.0;
+    return (currentTime - processStartTime_) / 60.0;
   }
 
-  double getGlobalElapsedTimeInHr(){
+  double getGlobalElapsedTimeInHr() {
     double currentTime;
 #ifdef RAI_TIMER_WALL_CLOCK
     gettimeofday(&timevalNow, nullptr);
@@ -212,9 +250,8 @@ class Timer {
     clock_gettime(RAI_CLOCK_TYPE, &timespec);
     currentTime = timespec.tv_sec + 1e-9 * timespec.tv_nsec;
 #endif
-    return (currentTime - processStartTime_)/3600.0;
+    return (currentTime - processStartTime_) / 3600.0;
   }
-
 
  private:
   std::vector<std::string> name_;
