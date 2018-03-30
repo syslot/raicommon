@@ -49,7 +49,6 @@ enum class OutputFormat {
   png,
   pdf,
   svg
-
 };
 
 struct FigProp2D {

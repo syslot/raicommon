@@ -80,6 +80,10 @@ list(APPEND ${PROJECT_NAME}_TARGETS rai_common_timer)
 add_library(rai_common_logger STATIC src/utils/rai_logger/RAI_logger.cpp)
 list(APPEND ${PROJECT_NAME}_TARGETS rai_common_logger)
 
+# Tests
+add_executable(loggerTest test/loggerTest.cpp)
+add_executable(plottingExamples src/utils/rai_graph/plotting_examples.cpp)
+
 #==
 # Package configuration: for use via find_package()
 #==

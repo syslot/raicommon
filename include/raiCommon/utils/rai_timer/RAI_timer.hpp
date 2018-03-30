@@ -53,7 +53,7 @@ class Timer {
     // create path directories if not exists
     boost::filesystem::path dirPath(log_path_.c_str());
 
-    if (createPathDir_ && !boost::filesystem::exists(dirPath))
+    if(!boost::filesystem::exists(dirPath))
       boost::filesystem::create_directories(dirPath);
 
     std::ofstream logFile;
@@ -201,11 +201,7 @@ class Timer {
     return items_;
   }
 
-  void setCreatePathDir(bool option) {
-    createPathDir_ = option;
-  }
-
-  void setLogPath(std::string &path) {
+  void setLogPath(std::string& path){
     log_path_ = path;
   }
 
@@ -274,8 +270,6 @@ class Timer {
   Timer_items items_;
   bool disableTimer = false;
   double processStartTime_;
-
-  bool createPathDir_ = false;
 
 };
 
