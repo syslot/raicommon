@@ -4,13 +4,11 @@
 
 #include <raiCommon/rai_utils.hpp>
 
-int main() {
-
+int main()
+{
   std::string path = "/tmp/test/test2/test3";
 //  rai::Utils::logger->setLogPath(path);
   rai::Utils::timer->setLogPath(path);
-
-
 //  rai::Utils::timer->getTimedItems();
   return 0;
 }

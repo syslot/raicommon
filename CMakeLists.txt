@@ -81,8 +81,10 @@ add_library(rai_common_logger STATIC src/utils/rai_logger/RAI_logger.cpp)
 list(APPEND ${PROJECT_NAME}_TARGETS rai_common_logger)
 
 # Tests
-add_executable(loggerTest test/loggerTest.cpp)
-add_executable(plottingExamples src/utils/rai_graph/plotting_examples.cpp)
+add_executable(test_Logger test/test_logger.cpp)
+target_link_libraries(test_Logger ${${PROJECT_NAME}_TARGETS})
+add_executable(examples_plotting src/examples/plotting_examples.cpp)
+target_link_libraries(examples_plotting ${${PROJECT_NAME}_TARGETS})
 
 #==
 # Package configuration: for use via find_package()
