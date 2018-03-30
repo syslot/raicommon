@@ -6,10 +6,11 @@
 
 int main() {
 
-//  std::string path = "/home/kangd/Desktop/test/test2/test3";
+  std::string path = "/tmp/test/test2/test3";
 //  rai::Utils::logger->setLogPath(path);
-//  rai::Utils::logger->setCreatePathDir(true);
+  rai::Utils::timer->setLogPath(path);
 
-  rai::Utils::timer->getTimedItems();
+
+//  rai::Utils::timer->getTimedItems();
   return 0;
 }
