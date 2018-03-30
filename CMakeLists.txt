@@ -66,4 +66,7 @@ install(FILES           ${CMAKE_CURRENT_BINARY_DIR}/${CONFIG_FILE_NAME}
 # --------------------------------------------------------------------
 # test
 add_executable(loggerTest test/loggerTest.cpp)
+add_executable(plottingExamples src/utils/rai_graph/plotting_examples.cpp)
+
 target_link_libraries(loggerTest ${rai_common_link})
+target_link_libraries(plottingExamples ${rai_common_link})
