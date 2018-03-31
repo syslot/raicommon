@@ -46,7 +46,7 @@ set(RAICOMMON_LIB_DIR ${CMAKE_BINARY_DIR}/lib CACHE PATH "rai lib directory")
 export(PACKAGE ${PROJECT_NAME})
 
 # build tree
-set(CONF_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/include")
+set(CONF_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/include" ${Boost_INCLUDE_DIR})
 
 # create raiGraphicsOpenglConfig.cmake.in
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/${CONFIG_FILE_NAME}.in
