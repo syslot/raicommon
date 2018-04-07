@@ -252,13 +252,11 @@ class Figure {
   }
 
   template<typename Dtype>
-  void drawPieChart(std::vector<Dtype> time,
-                    std::vector<std::string> name,
-                    std::string palette,
-                    std::string title,
+  void drawPieChart(int figureNumber,
+                    const std::vector<Dtype>& time,
+                    const std::vector<std::string>& name,
                     std::string unit,
-                    std::string position,
-                    std::string size) {
+                    FigPropPieChart &prop) {
 
     Dtype A_sum = Dtype(0);
     std::vector<std::string> nameNoSpace;
@@ -272,11 +270,11 @@ class Figure {
 
     std::string size_string="";
 
-    if(!size.empty())
-      size_string = "size " + size;
+    if(!prop.size.empty())
+      size_string = "size " + prop.size;
 
-    fprintf(pipe_, "set terminal %s %i position %s %s\n", termType, figID, position.c_str(), size_string.c_str());
-    fprintf(pipe_, "set style fill solid\n");
+    fprintf(pipe_, "set terminal %s %i position %s %s\n", termType, figID, position_[figureNumber].c_str(), size_string.c_str());
+    fprintf(pipe_, "set style fill solid 1.0 border rgb 'white'\n");
     fprintf(pipe_, "unset key\n");
     fprintf(pipe_, "unset tics\n");
     fprintf(pipe_, "unset border\n");
@@ -299,7 +297,7 @@ class Figure {
     fprintf(pipe_, "yposmax = 0.9*radius\n");
     fprintf(pipe_, "xpos = 1.3 * radius\n");
     fprintf(pipe_, "ypos(i) = yposmax - i*(yposmax-yposmin)/(1.0*rowf-rowi-1)\n");
-    fprintf(pipe_, "set palette %s\n", palette.c_str());
+    fprintf(pipe_, "set palette %s\n", prop.palette.c_str());
 
     fprintf(pipe_, "set size ratio -1\n");
     fprintf(pipe_, "set xrange [-radius:2.5*radius]\n");
@@ -310,7 +308,7 @@ class Figure {
 
     fprintf(pipe_, "filename = \"%s\"\n", tempfiles_.back().c_str());
 
-    fprintf(pipe_, "set title \"%s (total: %.3f %s)\"\n", title.c_str(), A_sum, unit.c_str());
+    fprintf(pipe_, "set title \"%s (total: %.3f %s)\"\n", prop.title.c_str(), A_sum, unit.c_str());
 
     fprintf(pipe_,
             "plot filename u (centerX):(centerY):(radius):(pos):(pos=pos+angle($2)):((colour = colour+1)/(%i-1.0)) every ::rowi::rowf w circle palette,\
