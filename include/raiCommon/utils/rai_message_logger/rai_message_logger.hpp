@@ -66,7 +66,7 @@ void stream(const char *file, const int line, std::stringstream& msg, int severi
   std::cout<<printout.str();
 
   if(severity == RSEVERITY_FATAL)
-    exit(0);
+    throw;
 }
 
  private:
