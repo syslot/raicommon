@@ -27,6 +27,7 @@ unset(raiCommon_FOUND)
 # Setup the raiCommon package variables
 set(raiCommon_INCLUDE_DIRS "@CONFIG_INCLUDE_DIRS@")
 set(raiCommon_LIBRARIES_DIR "@CONFIG_LIBRARIES_DIRS@")
+set(raiCommon_LIBRARIES "@CONFIG_LIBRARIES@")
 set(raiCommon_EXPORTED_TARGETS "@CONFIG_EXPORTED_TARGETS@")
 
 # Check if libraries target should be
@@ -41,7 +42,7 @@ if(DEFINED USE_EXPORTED_LIBS)
     list(APPEND raiCommon_LIBRARIES ${${library}_LIB})
   endforeach()
 else()
-  set(raiCommon_LIBRARIES ${raiCommon_EXPORTED_TARGETS})
+  list(APPEND raiCommon_LIBRARIES ${raiCommon_EXPORTED_TARGETS})
 endif()
 
 # Check if the path variables where set succesfully
