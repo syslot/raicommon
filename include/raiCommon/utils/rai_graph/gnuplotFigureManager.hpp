@@ -182,13 +182,12 @@ class GnuplotFigureManager {
   /*No figure(), no drawFigure()*/
   template<typename Dtype>
   void drawPieChart(int figureNumber,
-                    std::vector<Dtype> &time,
-                    std::vector<std::string> &name,
-                    std::string title,
+                    const std::vector<Dtype>& time,
+                    const std::vector<std::string>& name,
                     std::string unit,
-                    std::string style = "rgb 33,13,10", std::string position = "", std::string size = "") {
+                    FigPropPieChart& prop) {
     RAIWARN_IF(figureNumber>5 || figureNumber<0,"valid figure number between 0 and 5");
-    figures_[figureIdx(figureNumber)]->drawPieChart(time, name, style, title, unit, position, size);
+    figures_[figureIdx(figureNumber)]->drawPieChart(figureNumber, time, name, unit, prop);
   }
 
  /*No figure(), no drawFigure()*/

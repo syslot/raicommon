@@ -1,0 +1,60 @@
+#.rst:
+# Config file for the raiCommon CMake package
+# ----------
+# This config sets the following variables:
+# ``raiCommon_FOUND``
+#  True, if the system has raiCommon.
+# ``raiCommon_INCLUDE_DIRS``
+#  Path to the raiCommon header files.
+# ``raiCommon_LIBRARIES``
+#  Paths to the raiCommon core libraries.
+#
+#=============================================================================
+# Copyright (C) 2018 Jemin Hwangbo
+# All rights reserved.
+# https://bitbucket.org/leggedrobotics/rai_common
+#
+# This software is distributed WITHOUT ANY WARRANTY; without even the
+# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the License for more information.
+#=============================================================================
+
+# We include this module to streamline generation of standard CMake variables
+# (https://cmake.org/cmake/help/v3.5/module/FindPackageHandleStandardArgs.html)
+include(FindPackageHandleStandardArgs)
+unset(raiCommon_FOUND)
+
+# Setup the raiCommon package variables
+set(raiCommon_INCLUDE_DIRS "@CONFIG_INCLUDE_DIRS@")
+set(raiCommon_LIBRARIES_DIR "@CONFIG_LIBRARIES_DIRS@")
+set(raiCommon_EXPORTED_TARGETS "@CONFIG_EXPORTED_TARGETS@")
+
+# Check if libraries target should be
+if(DEFINED USE_EXPORTED_LIBS)
+  # Construct list with full paths of libraries to link against
+  foreach(library ${raiCommon_EXPORTED_TARGETS})
+    find_library(${library}_LIB
+      NAMES ${library}
+      PATHS ${raiCommon_LIBRARIES_DIR}
+      NO_DEFAULT_PATH
+      )
+    list(APPEND raiCommon_LIBRARIES ${${library}_LIB})
+  endforeach()
+else()
+  set(raiCommon_LIBRARIES ${raiCommon_EXPORTED_TARGETS})
+endif()
+
+# Check if the path variables where set succesfully
+find_package_handle_standard_args(raiCommon
+  REQUIRED_VARS
+    raiCommon_INCLUDE_DIRS
+    raiCommon_LIBRARIES)
+
+# Check if package search and setup was successful overall
+if(raiCommon_FOUND)
+  message(STATUS "raiCommon: config: ${CMAKE_CURRENT_LIST_FILE}")
+  message(STATUS "raiCommon: includes: ${raiCommon_INCLUDE_DIRS}")
+  message(STATUS "raiCommon: libraries: ${raiCommon_LIBRARIES}")
+endif()
+
+# EOF

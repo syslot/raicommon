@@ -113,7 +113,7 @@ class Timer {
     frameCount[item]++;
   }
 
-  void startTimer(std::string name) {
+  void startTimer(const std::string& name) {
     if (disableTimer) return;
     unsigned int idx = std::find(name_.begin(), name_.end(), name) - name_.begin();
     if (idx == name_.size()) {
@@ -144,7 +144,7 @@ class Timer {
 #endif
   }
 
-  void stopTimer(std::string name) {
+  void stopTimer(const std::string& name) {
     if (disableTimer) return;
 #ifdef RAI_TIMER_WALL_CLOCK
     gettimeofday(&timevalNow, nullptr);
@@ -201,11 +201,11 @@ class Timer {
     return items_;
   }
 
-  void setLogPath(std::string& path){
+  void setLogPath(const std::string& path){
     log_path_ = path;
   }
 
-  void setLogFileName(std::string &name) {
+  void setLogFileName(const std::string& name) {
     file_name_ = name;
   }
 

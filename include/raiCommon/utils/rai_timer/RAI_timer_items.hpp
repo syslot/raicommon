@@ -18,7 +18,7 @@ class Timer_items {
 
   }
 
-  void add_item(std::string name, int id, std::vector<int> parentsID) {
+  void add_item(const std::string& name, int id, std::vector<int> parentsID) {
     totalChildren_++;
 
     if (parentsID.size() == 0) {

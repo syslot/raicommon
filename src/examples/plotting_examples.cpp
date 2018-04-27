@@ -122,4 +122,16 @@ int main() {
     usleep(50000);
   }
 
+  {
+    FigPropPieChart prop;
+    prop.title = "test Pie";
+
+    std::vector<double> data = {1.0,5.0,6.0};
+    std::vector<std::string> name = {"item1", "item2", "item3"};
+    graph->drawPieChart(1, data, name, "s", prop);
+    graph->drawFigure(1);
+  }
+
+  graph->waitForEnter();
+
 }
