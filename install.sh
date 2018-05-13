@@ -1,5 +1,8 @@
 #!/bin/bash
 
+version=$(lsb_release -r | awk '{ print $2 }')
+yrelease=$( echo "$version" | cut -d. -f1 )
+
 # GNUPLOT
 if [ "$yrelease" -eq "16" ]; then
     sudo apt-get install $APT_GET_FLAGS gnuplot5
