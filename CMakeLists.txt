@@ -41,12 +41,37 @@ endif()
 
 # Set C++ language version
 set(CMAKE_CXX_STANDARD 14)
-
-# Set GCC version
-set(CMAKE_CXX_COMPILER "/usr/bin/g++-6")
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Enable the POSITION_INDEPENDENT_CODE property for all targets
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
+# Set GCC flags
+add_compile_options("-pthread")
+add_compile_options("-Wl,--no-as-needed")
+add_compile_options("-mtune=native")
+add_compile_options("-Wall" "-Wextra")
+
+# Set a default build if no build type is set
+if(NOT CMAKE_CONFIGURATION_TYPES AND NOT CMAKE_BUILD_TYPE)
+  SET(CMAKE_BUILD_TYPE RelWithDebInfo)
+endif(NOT CMAKE_CONFIGURATION_TYPES AND NOT CMAKE_BUILD_TYPE)
+message(STATUS "${PROJECT_NAME}: CMAKE_BUILD_TYPE is set to:  ${CMAKE_BUILD_TYPE}")
+
+# Set optimization flags depending on set build-type
+if(CMAKE_BUILD_TYPE MATCHES Debug)
+  add_compile_options("-O0" "-g")
+  add_definitions(-DRAIDEBUG)
+elseif(CMAKE_BUILD_TYPE MATCHES RelWithDebInfo)
+  add_compile_options("-g" "-w" "-O2")
+  add_definitions(-DRAIDEBUG)
+elseif(CMAKE_BUILD_TYPE MATCHES Release)
+  add_compile_options("-w" "-O3")
+  remove_definitions(-DRAIDEBUG)
+else()
+  message(FATAL_ERROR "${PROJECT_NAME}: Invalid or unsupported build-type '${CMAKE_BUILD_TYPE}'")
+endif()
 
 # Set include directories
 include_directories(
