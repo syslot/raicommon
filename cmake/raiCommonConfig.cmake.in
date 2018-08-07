@@ -31,7 +31,7 @@ set(raiCommon_LIBRARIES "@CONFIG_LIBRARIES@")
 set(raiCommon_EXPORTED_TARGETS "@CONFIG_EXPORTED_TARGETS@")
 
 # Check if libraries target should be
-if(DEFINED USE_EXPORTED_LIBS)
+if(USE_EXPORTED_LIBS)
   # Construct list with full paths of libraries to link against
   foreach(library ${raiCommon_EXPORTED_TARGETS})
     find_library(${library}_LIB
