@@ -15,6 +15,12 @@ project(raiCommon)
 include(GNUInstallDirs)
 
 #==
+# Options
+#==
+
+option(USE_EXPORTED_LIBS "Configures the CMake package for installation in a multi-package workspace such as Catkin." OFF)
+
+#==
 # Dependencies
 #==
 
@@ -124,7 +130,7 @@ set(CMAKE_PACKAGE_CONFIG_INSTALL_DIR
 set(CONFIG_FILE_NAME ${PROJECT_NAME}Config.cmake)
 
 # Set the configuration variables
-if (DEFINED USE_EXPORTED_LIBS)
+if (USE_EXPORTED_LIBS)
   list(APPEND ${PROJECT_NAME}_INCLUDE_DIRS "${CMAKE_INSTALL_PREFIX}/include")
 else()
   list(APPEND ${PROJECT_NAME}_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/include")
