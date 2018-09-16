@@ -1,7 +1,20 @@
 #!/bin/bash
+set -x
 
 version=$(lsb_release -r | awk '{ print $2 }')
 yrelease=$( echo "$version" | cut -d. -f1 )
+
+# BUILD TOOLS
+sudo apt-get install -y -qq cmake
+
+sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test 
+sudo apt-get update -y && sudo apt-get install -y -qq g++-7 g++-6
+
+# EIGEN
+sudo apt-get install -y -qq libeigen3-dev 
+
+# BOOST
+sudo apt-get install -y -qq libboost-all-dev
 
 # GNUPLOT
 if [ "$yrelease" -eq "16" ]; then
