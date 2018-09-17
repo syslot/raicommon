@@ -10,7 +10,7 @@ services:
 
 install:
   - docker pull raisim/raicommon:latest
-  - docker run -itd -v $TRAVIS_BUILD_DIR:$TRAVIS_BUILD_DIR --name raicommon-docker raisim/simbenchmark:latest
+  - docker run -itd -v $TRAVIS_BUILD_DIR:$TRAVIS_BUILD_DIR --name raicommon-docker raisim/raicommon:latest
 
 script:
   - docker exec raicommon-docker /bin/bash -c "cd $TRAVIS_BUILD_DIR && ./.ci/build.sh"
