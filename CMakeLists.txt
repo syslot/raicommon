@@ -9,7 +9,7 @@
 #=============================================================================
 
 cmake_minimum_required(VERSION 3.5)
-project(raiCommon)
+project(raicommon)
 
 # Include CMake helper packages and utilities
 include(GNUInstallDirs)
