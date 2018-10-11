@@ -1,13 +1,13 @@
 #.rst:
-# Config file for the raiCommon CMake package
+# Config file for the raicommon CMake package
 # ----------
 # This config sets the following variables:
-# ``raiCommon_FOUND``
-#  True, if the system has raiCommon.
-# ``raiCommon_INCLUDE_DIRS``
-#  Path to the raiCommon header files.
-# ``raiCommon_LIBRARIES``
-#  Paths to the raiCommon core libraries.
+# ``raicommon_FOUND``
+#  True, if the system has raicommon.
+# ``raicommon_INCLUDE_DIRS``
+#  Path to the raicommon header files.
+# ``raicommon_LIBRARIES``
+#  Paths to the raicommon core libraries.
 #
 #=============================================================================
 # Copyright (C) 2018 Jemin Hwangbo
@@ -22,40 +22,40 @@
 # We include this module to streamline generation of standard CMake variables
 # (https://cmake.org/cmake/help/v3.5/module/FindPackageHandleStandardArgs.html)
 include(FindPackageHandleStandardArgs)
-unset(raiCommon_FOUND)
+unset(raicommon_FOUND)
 
-# Setup the raiCommon package variables
-set(raiCommon_INCLUDE_DIRS "@CONFIG_INCLUDE_DIRS@")
-set(raiCommon_LIBRARIES_DIR "@CONFIG_LIBRARIES_DIRS@")
-set(raiCommon_LIBRARIES "@CONFIG_LIBRARIES@")
-set(raiCommon_EXPORTED_TARGETS "@CONFIG_EXPORTED_TARGETS@")
+# Setup the raicommon package variables
+set(raicommon_INCLUDE_DIRS "@CONFIG_INCLUDE_DIRS@")
+set(raicommon_LIBRARIES_DIR "@CONFIG_LIBRARIES_DIRS@")
+set(raicommon_LIBRARIES "@CONFIG_LIBRARIES@")
+set(raicommon_EXPORTED_TARGETS "@CONFIG_EXPORTED_TARGETS@")
 
 # Check if libraries target should be
 if(USE_EXPORTED_LIBS)
   # Construct list with full paths of libraries to link against
-  foreach(library ${raiCommon_EXPORTED_TARGETS})
+  foreach(library ${raicommon_EXPORTED_TARGETS})
     find_library(${library}_LIB
       NAMES ${library}
-      PATHS ${raiCommon_LIBRARIES_DIR}
+      PATHS ${raicommon_LIBRARIES_DIR}
       NO_DEFAULT_PATH
       )
-    list(APPEND raiCommon_LIBRARIES ${${library}_LIB})
+    list(APPEND raicommon_LIBRARIES ${${library}_LIB})
   endforeach()
 else()
-  list(APPEND raiCommon_LIBRARIES ${raiCommon_EXPORTED_TARGETS})
+  list(APPEND raicommon_LIBRARIES ${raicommon_EXPORTED_TARGETS})
 endif()
 
 # Check if the path variables where set succesfully
-find_package_handle_standard_args(raiCommon
+find_package_handle_standard_args(raicommon
   REQUIRED_VARS
-    raiCommon_INCLUDE_DIRS
-    raiCommon_LIBRARIES)
+    raicommon_INCLUDE_DIRS
+    raicommon_LIBRARIES)
 
 # Check if package search and setup was successful overall
-if(raiCommon_FOUND)
-  message(STATUS "raiCommon: config: ${CMAKE_CURRENT_LIST_FILE}")
-  message(STATUS "raiCommon: includes: ${raiCommon_INCLUDE_DIRS}")
-  message(STATUS "raiCommon: libraries: ${raiCommon_LIBRARIES}")
+if(raicommon_FOUND)
+  message(STATUS "raicommon: config: ${CMAKE_CURRENT_LIST_FILE}")
+  message(STATUS "raicommon: includes: ${raicommon_INCLUDE_DIRS}")
+  message(STATUS "raicommon: libraries: ${raicommon_LIBRARIES}")
 endif()
 
 # EOF
