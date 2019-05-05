@@ -146,8 +146,7 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/${CONFIG_FILE_NAME}.in
 # Package installation
 #==
 
-# Include CMake helper packages and utilities
-include(GNUInstallDirs)
+
 
 # Install the package configuration file
 install(
